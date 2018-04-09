@@ -16,6 +16,7 @@
 4. **Final Project**: Fill in The Blank Quiz - `fill-in-the-blanks.py`
   - User enters the answers to fill-in-the-blank quiz.
   - [Docs](docs/fillintheblanks.md)
+  - [Live Demo](demo.html)
 
 ### Concepts Utilized
 - Pseudocode
