@@ -1,10 +1,7 @@
 """ Fill in The Blanks Quiz.
-
 Asks the user for difficulty level and number of trys, and displays an approprate quiz. The quiz has numbered blanks, asks the user for their answers for each until the quiz is complete or they make the maximum number of mistakes.
-
 Example:
     Run the following to test a compiled version provided by Udacity::
-
         $ python tests/fill-in-the-blanks.pyc
 """
 #TODO: Move global variables to __main__
@@ -72,14 +69,11 @@ def setchances():
 
 def checkanswer(possible, guess):
     """ Case insensitive check of answer.
-
     Assume inputs are in the correct format, since takeQuiz() accounts
     for
-
     Args:
         possible (list): List of possible answers for question.
         guess (string): User's guess for question.
-
     Returns:
         bool: True if guess is in possible, False otherwise.
     """
@@ -90,10 +84,8 @@ def checkanswer(possible, guess):
 
 def answerquestion(index, quiz):
     """ Gets the player's input for blank number ``index``.
-
     Sets the global variable ``alive`` to False if the player
     has used all their chances.
-
     Returns:
         string: Quiz updated with player's answer.
     """
@@ -104,7 +96,7 @@ def answerquestion(index, quiz):
     while chance > 0:
         guess = input("What goes in ___%s___: " % str(index+1))
         if checkanswer(answer, guess):
-            correct_answer(guess)
+            quiz = correct_answer(guess, quiz, index)
             break
         elif chance > 1:
             print("That is incorrect. Try again.")
@@ -115,16 +107,16 @@ def answerquestion(index, quiz):
             break
     return quiz
 
-def correct_answer(guess):
+def correct_answer(guess, quiz, index):
     print("Correct! \n")
     print('-' * 20)
     quiz = quiz.replace('___%s___' % str(index+1), guess)
     print (quiz)
     print('-' * 20 + '\n')
+    return quiz
 
 def takequiz():
     """ Shows the quiz and asks the user for answers.
-
     Returns:
         bool: True if the user completes the quiz, ``False`` if they use
         too many guesses.
@@ -135,6 +127,7 @@ def takequiz():
     welcome_to_quiz()
     quiz = quizes[difficulty]
     setchances()
+    lets_get_started(quiz)
     for index in range(len(answers[difficulty])):
         quiz = answerquestion(index, quiz)
         if not alive: break
@@ -150,7 +143,7 @@ def welcome_to_quiz():
     print("Welcome to the quiz.\n")
     setdifficulty()
 
-def lets_get_started():
+def lets_get_started(quiz):
     print("Let's get started:")
     print("=" * 20)
     print(quiz)
