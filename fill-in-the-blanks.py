@@ -104,11 +104,7 @@ def answerquestion(index, quiz):
     while chance > 0:
         guess = input("What goes in ___%s___: " % str(index+1))
         if checkanswer(answer, guess):
-            print("Correct! \n")
-            print('-' * 20)
-            quiz = quiz.replace('___%s___' % str(index+1), guess)
-            print (quiz)
-            print('-' * 20 + '\n')
+            correct_answer(guess)
             break
         elif chance > 1:
             print("That is incorrect. Try again.")
@@ -118,6 +114,13 @@ def answerquestion(index, quiz):
             alive = False
             break
     return quiz
+
+def correct_answer(guess):
+    print("Correct! \n")
+    print('-' * 20)
+    quiz = quiz.replace('___%s___' % str(index+1), guess)
+    print (quiz)
+    print('-' * 20 + '\n')
 
 def takequiz():
     """ Shows the quiz and asks the user for answers.
@@ -129,21 +132,12 @@ def takequiz():
     global alive
     alive = True
 
-    print('\n' + "* " * 10)
-    print("Welcome to the quiz.\n")
-    setdifficulty()
+    welcome_to_quiz()
     quiz = quizes[difficulty]
     setchances()
-
-    print("Let's get started:")
-    print("=" * 20)
-    print(quiz)
-    print("=" * 20 + '\n')
-
     for index in range(len(answers[difficulty])):
         quiz = answerquestion(index, quiz)
         if not alive: break
-
     if alive:
         print("Great job completing the %s quiz!\n" % difficulty)
     else:
@@ -151,13 +145,28 @@ def takequiz():
 
     return alive
 
-if __name__ == '__main__':
+def welcome_to_quiz():
+    print('\n' + "* " * 10)
+    print("Welcome to the quiz.\n")
+    setdifficulty()
+
+def lets_get_started():
+    print("Let's get started:")
+    print("=" * 20)
+    print(quiz)
+    print("=" * 20 + '\n')
+
+def test_pilot():
     ## Test functions
-    assert checkanswer(answers['easy'][0], 'washington dc') == True
-    assert checkanswer(answers['easy'][0], 'washington') == False
-    assert checkanswer(answers['medium'][5], 'space time') == True
-    assert checkanswer(answers['medium'][3], 'time') == False
-    assert checkanswer(answers['hard'][1], 'OSCAR') == True
+    index_to_check = 0
+    assert checkanswer(answers['easy'][index_to_check], 'washington dc') == True
+    assert checkanswer(answers['easy'][index_to_check], 'washington') == False
+    index_to_check = 5
+    assert checkanswer(answers['medium'][index_to_check], 'space time') == True
+    index_to_check = 3
+    assert checkanswer(answers['medium'][index_to_check], 'time') == False
+    index_to_check = 1
+    assert checkanswer(answers['hard'][index_to_check], 'OSCAR') == True
 
     # Main
     while True:
@@ -165,3 +174,6 @@ if __name__ == '__main__':
         if input("Would you like to play again: (yes or no)  ") not in ['yes', 'y']:
             print("Okay, good bye. \n")
             break
+
+if __name__ == '__main__':
+    test_pilot()
