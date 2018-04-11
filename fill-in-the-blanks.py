@@ -4,10 +4,10 @@ Example:
     Run the following to test a compiled version provided by Udacity::
         $ python tests/fill-in-the-blanks.pyc
 """
-#TODO: Move global variables to __main__
+
 quizes = {'easy':
 """The capital city of the United States of America
-is ___1___. The current president of the USA is ___2___.
+is ___1___. The 44th president of the USA is ___2___.
 ___2___ is best known for being the first ___3___-American
 president of the USA. He has also received the
 Nobel ___4___ Prize.""",
@@ -43,7 +43,9 @@ answers = {'easy': [['Washington, D.C.', 'Washington, DC', 'Washington DC'],
                     ['Walt Disney Pictures', 'Disney']]}
 
 alive = True
-chances, difficulty = 1, 'easy'
+chances = 1
+difficulty = 'easy'
+user_interface_size = 20
 
 def setdifficulty():
     """ Sets the quiz ``difficulty`` level. """
@@ -77,6 +79,7 @@ def checkanswer(possible, guess):
     Returns:
         bool: True if guess is in possible, False otherwise.
     """
+    #In order to be user friendly, check for strings that are lowercased
     for answer in possible:
         if guess.lower() == answer.lower():
             return True
@@ -100,7 +103,7 @@ def answerquestion(index, quiz):
             break
         elif chance > 1:
             print("That is incorrect. Try again.")
-            chance += -1
+            chance -= 1
             print(chance, "chance(s) left. \n")
         else:
             alive = False
@@ -109,10 +112,10 @@ def answerquestion(index, quiz):
 
 def correct_answer(guess, quiz, index):
     print("Correct! \n")
-    print('-' * 20)
+    print('-' * user_interface_size)
     quiz = quiz.replace('___%s___' % str(index+1), guess)
     print (quiz)
-    print('-' * 20 + '\n')
+    print('-' * user_interface_size + '\n')
     return quiz
 
 def takequiz():
@@ -139,15 +142,15 @@ def takequiz():
     return alive
 
 def welcome_to_quiz():
-    print('\n' + "* " * 10)
+    print('\n' + "* " * user_interface_size)
     print("Welcome to the quiz.\n")
     setdifficulty()
 
 def lets_get_started(quiz):
     print("Let's get started:")
-    print("=" * 20)
+    print("=" * user_interface_size)
     print(quiz)
-    print("=" * 20 + '\n')
+    print("=" * user_interface_size + '\n')
 
 def test_pilot():
     ## Test functions
