@@ -6,46 +6,54 @@
     Written by: Louis Magdaleno
     Date: 4/18/2018
 '''
-banner_length = 30
-attempts = 1
-difficulty = 'easy'
-alive = True
-madlibs = {
-    'easy' : 'Dr. (__1__) is best known for his books \nThe (__2__)'
-        +'in the (__3__) and How the \n(__4__) stole (__5__).',
-    'medium' : '(__1__) is a (__2__) typed language. It utilizes an\n'
-        +'(__3__) instead of a compiler. \nThe kind of snake in its '
-        +'logo represents the name of the (__4__).\nIt is a very (__5__)'
-        +' language to type. ',
-    'hard' : 'Jurassic (__1__) was a 1993 movie about (__2__).' 
-        +'\nThe plot of the movie was about a dinosaur (__3__) park gone wrong.'
-        +'\nThe final scene pitting a (__4__)-rex against veloci(__5__) was very'
-        +'cool.'
-}
-easy_answers = {
-    '(__1__)' : 'suess',
-    '(__2__)' : 'cat',
-    '(__3__)' : 'hat',
-    '(__4__)' : 'grinch',
-    '(__5__)' : 'stole'
-    }
-medium_answers = {
-    '(__1__)' : 'python',
-    '(__2__)' : 'dynamically',
-    '(__3__)' : 'interpreter',
-    '(__4__)' : 'language',
-    '(__5__)' : 'easy'
-    }
-hard_answers = {
-    '(__1__)' : 'park',
-    '(__2__)' : 'dinosaurs',
-    '(__3__)' : 'park',
-    '(__4__)' : 't',
-    '(__5__)' : 'raptor'
-    }
+
 
 def play_game():
-    '''Call functions to play fill in the blank.'''
+    '''play fill in the blank.'''
+    banner_length = 30
+    attempts = 1
+    difficulty = 'easy'
+    alive = True
+    madlibs = {
+        'easy' : 'Dr. (__1__) is best known for his books \nThe (__2__)'
+            +'in the (__3__) and How the \n(__4__) stole (__5__).',
+        'medium' : '(__1__) is a (__2__) typed language. It utilizes an\n'
+            +'(__3__) instead of a compiler. \nThe kind of snake in its '
+            +'logo represents the name of the (__4__).\nIt is a very (__5__)'
+            +' language to type. ',
+        'hard' : 'Jurassic (__1__) was a 1993 movie about (__2__).' 
+            +'\nThe plot of the movie was about a dinosaur (__3__) park gone wrong.'
+            +'\nThe final scene pitting a (__4__)-rex against veloci(__5__) was very'
+            +'cool.'
+    }
+    easy_answers = {
+        '(__1__)' : 'suess',
+        '(__2__)' : 'cat',
+        '(__3__)' : 'hat',
+        '(__4__)' : 'grinch',
+        '(__5__)' : 'stole'
+        }
+    medium_answers = {
+        '(__1__)' : 'python',
+        '(__2__)' : 'dynamically',
+        '(__3__)' : 'interpreter',
+        '(__4__)' : 'language',
+        '(__5__)' : 'easy'
+        }
+    hard_answers = {
+        '(__1__)' : 'park',
+        '(__2__)' : 'dinosaurs',
+        '(__3__)' : 'park',
+        '(__4__)' : 't',
+        '(__5__)' : 'raptor'
+        }
+
+    display_welcome()
+    difficulty = get_difficulty()
+    attempts = get_attempts()
+
+
+
 def print_stars():
     '''Print stars across the screen.'''
     print('*' * banner_length)
@@ -103,7 +111,7 @@ def get_answer(blank):
 def check_answer(ans, blank, diff):
     '''Check a user answer against answers in dictionary. Return True or False.
 
-    Keyword Arguments:å
+    Keyword Arguments:
     ans - answer entered by user
     blank - the blank word the user is trying to solve, ie (__1__)
     diff - difficulty level set by user
@@ -123,18 +131,21 @@ def update_attempts(att):
     att - number of attempts as int
     '''
     return att - 1
-def update_madlib(lib_dict, blank, answer):
+def update_madlib(lib_dict, diff, blank, answer):
     '''Return updated madlib after correct guess.
 
     Keyword Arguments:
     lib_dict - dictionary containing mad lib
+    diff - difficulty level of game
     blank - the blank word the user is trying to solve, ie (__1__)
     answer - correct user answer
     '''
-    t
+    return lib_dict[diff].replace(blank,answer)
 def play_again():
     '''Ask user if they want to play again. Return yes or no.'''
-def reset_game():
-    '''Reset values of variables to default. '''
+    answer = input('Do you want to play again? Enter yes or no.\n').lower()
+    while answer != 'yes' or answer != 'no':
+        answer = input('Enter yes or no.\n').lower()
+    return answer
 def test_guessing_game():
     '''Perform tests on guessing game.'''
