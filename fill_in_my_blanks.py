@@ -105,11 +105,8 @@ def display_welcome():
     print_stars()
     print('')
     print('Fill in the Blank V1.0')
-    print('''A simple game where you select a difficulty level \n
-        and a number of guesses to fill in a blank.''')
-    print ('''You will then be presented with a text passage containing several
-        missing words.\nYou will be asked to enter a word that fills in
-        a missing word. \nFill all the blanks to win!''')
+    print('''A simple game where you select a difficulty level \nand a number of guesses to fill in a blank.''')
+    print ('''You will then be presented with a text \npassage containing several missing words.\nYou will be asked to enter a word that fills in a missing word. \nFill all the blanks to win!''')
     print_stars()
 
 
@@ -121,8 +118,7 @@ def get_difficulty(madlibs):
     madlibs - dictionary containing valid difficulty levels as keys
     '''
 
-    diff = input('''Please select a game difficulty level.\n
-        Enter easy, medium, or hard.\n''').lower()
+    diff = input('''Please select a game difficulty level.\nEnter easy, medium, or hard.\n''').lower()
     while diff not in madlibs.keys():
         diff = input('Enter easy, medium, or hard.\n').lower()
     return diff
@@ -131,13 +127,24 @@ def get_difficulty(madlibs):
 def get_attempts():
     '''Prompt user to enter number of attempts. Return int > 0.'''
 
-    attempts = input('''How many attempts would you like?\n
-        Enter a number greater than zero.\n''')
-    while attempts.isdigit() is False and int(attempts) <= 0:
+    attempts = input('''How many attempts would you like?\nEnter a number greater than zero.\n''')
+    while not num_greater_than_zero(attempts):
         attempts = input('Enter a number greater than zero.\n')
-    print('Okay! You will have ', attempts,
-          ' attempts to solve this challenge.')
+    print('Okay! You will have ', attempts,' attempts to solve this challenge.')
     return attempts
+
+def num_greater_than_zero(num):
+    '''Check is parater is a number greater than zero. Return True or False.
+
+    Keyword Arguments:
+    num - a parameter to be checked if is int and if greater than zero.
+    '''
+    is_num = False
+    if num.isdigit() is False:
+        return False
+    if int(num) <= 0:
+        return False
+    return True
 
 
 def dead(att):
